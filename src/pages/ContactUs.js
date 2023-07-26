@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useState} from 'react';
 
 export default function ContactUs(){
     
@@ -11,21 +10,22 @@ export default function ContactUs(){
         'email':''
     })
 
-    function submitForm(){
+    const submitForm = useCallback(() => {
+        
         navigate('/form-submitted', {
             'state':{
                 'formData':formState
             }
         })
-    }
+    }, [navigate, formState])
 
-    const updateFormField = (event) => {
+    const updateFormField = useCallback((event) => {
         setFormState(
             {...formState,
             [event.target.name]: event.target.value
             }
         )
-    }
+    }, [formState])
     
     return(
         <React.Fragment>
